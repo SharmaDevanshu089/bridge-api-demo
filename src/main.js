@@ -7,6 +7,6 @@ function showLoading() {
   buttonclick = true;
   btn.disabled = true;
 btn.innerHTML = '<div class="loader"></div> Loading...';
-invoke('fetch_url');
+console.log(invoke('fetch_url'));
 }
 document.getElementById('fetchBtn').addEventListener('click', showLoading);

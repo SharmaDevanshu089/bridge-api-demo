@@ -2,10 +2,6 @@
 use reqwest::Client;
 use serde_json::Value;
 
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
@@ -28,7 +24,7 @@ async fn fetch_url() -> String {
 
     let client = Client::new();
     let res = client
-        .post(&url)
+        .get(&url)
         .header("Content-Type", "application/json")
         .header("Api-Key", api_key)
         .send()
@@ -36,5 +32,6 @@ async fn fetch_url() -> String {
         .expect("request failed");
 
     let body: Value = res.json().await.expect("invalid json");
+    println!("{:#?}", body);
     body["url"].as_str().unwrap().to_string()
 }
